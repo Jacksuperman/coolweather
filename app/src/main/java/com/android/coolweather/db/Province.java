@@ -5,7 +5,7 @@ import org.litepal.crud.DataSupport;
 public class Province extends DataSupport {
     private int id;
     private String provinceName;
-    private int provinceCode;
+    private int provinceCode;//当前市所属省的id值
 
     public int getId() {
         return id;
