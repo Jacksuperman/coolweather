@@ -5,7 +5,7 @@
     android:background="#fff"
     android:orientation="vertical">
     <!--遍历全国省市县-->
-    <!--头布局作为标题栏，将布局高度设置为actionBar的高度，背景色设置为colorPrimary-->
+    <!--定义一个头布局作为标题栏，将布局高度设置为actionBar的高度，背景色设置为colorPrimary-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
