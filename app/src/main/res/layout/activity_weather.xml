@@ -48,6 +48,7 @@
 
             </ScrollView>
         </android.support.v4.widget.SwipeRefreshLayout>
+
         <!--遍历省市县数据-->
         <fragment
             android:id="@+id/choose_area_fragment"

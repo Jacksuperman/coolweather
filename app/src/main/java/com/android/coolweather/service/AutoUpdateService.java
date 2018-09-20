@@ -29,15 +29,20 @@ public class AutoUpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        updateWeather();//更新天气
         updateBingPic();//更新背景图片
-        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour = 8 * 60 * 60 * 1000;//8小时
-        long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
-        Intent i = new Intent(this, AutoUpdateService.class);
-        PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
-        manager.cancel(pi);
-        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
+        SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isUpdateTime = pref.getBoolean("isUpdateTime", true);
+        if (isUpdateTime == true){
+            updateWeather();//更新天气
+            AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            int autoUpdateTime = pref.getInt("autoUpdateTime", 60);
+            int anHour = autoUpdateTime * 60 * 1000; // 这是 60 分钟的毫秒数
+            long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
+            Intent i = new Intent(this, AutoUpdateService.class);
+            PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
+            manager.cancel(pi);
+            manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
